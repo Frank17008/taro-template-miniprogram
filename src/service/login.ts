@@ -2,18 +2,21 @@ import { Base64 } from "js-base64";
 import md5 from "js-md5";
 import request from "./request";
 
-export const login = (params): Promise<any> => {
-  const Authorization = `Basic ${Base64.encode("sword: sword_secret")}`;
+export const login = (params) => {
+  const Authorization = `Basic ${Base64.encode(
+    `${params?.headers?.clientId || "sword"}:${
+      params?.headers?.clientSecret || "sword_secret"
+    }`
+  )}`;
   const password = md5(params.password);
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+    Authorization,
+  };
   return request
-    .post(`${BASE_URL}/blade-auth/oauth/token`, {
-      data: { ...params, password, grant_type: "password" },
-      headers: {
-        contentType: "application/x-www-form-urlencoded",
-        Authorization,
-      },
+    .post(`${BASE_URL}/api/blade-auth/oauth/token`, {
+      params: { ...params, password, grant_type: "password" },
+      headers,
     })
-    .then((res) => {
-      console.info(res);
-    });
+    .then((res) => {});
 };

@@ -1,37 +1,41 @@
 import Taro from "@tarojs/taro";
 
 const customInterceptor = (chain) => {
-  const requestParams = chain.requestParmas;
-  console.info(requestParams);
+  const requestParams = chain.requestParams;
   if (requestParams) {
     //   const { method, data, url } = requestParams;
     // const token = Taro.getStorageSync("token");
-    requestParams.headers = {
-      ...(requestParams?.header || {}),
-      "Tenant-Id": "000000",
-      // "Blade-auth": token,
-      // Authorization: accessInfo.authorization,
-    };
+    // requestParams.headers = {
+    // ...(requestParams?.header || {}),
+    // "Blade-auth": token,
+    // Authorization: accessInfo.authorization,
+    // };
   }
   return chain.proceed(requestParams).then((res) => res);
 };
 
-// Taro.addInterceptor(customInterceptor);
+Taro.addInterceptor(customInterceptor);
 // 日志
 // Taro.addInterceptor(Taro.interceptors.logInterceptor);
 // 超时
 // Taro.addInterceptor(Taro.interceptors.timeoutInterceptor);
 
-const request = async (method, url: string, params?) => {
-  let contentType = params?.data
+type RequestMethod = "PUT" | "POST" | "GET" | "DELETE" | "PATCH";
+const request = async (method: RequestMethod, url: string, config?) => {
+  const ContentType = config?.data
     ? "application/json"
     : "application/x-www-form-urlencoded";
-  if (params) contentType = params?.header?.contentType || contentType;
+  // get请求使用params, post使用data
+  const data = config?.params || config?.data;
   const option = {
     method,
     url,
-    data: params && params?.data,
-    header: { "Content-type": contentType },
+    data,
+    header: {
+      "Content-Type": ContentType,
+      "Tenant-Id": "000000",
+      ...config?.headers,
+    },
     success(res) {
       switch (res?.statusCode) {
         case 200: {
@@ -46,7 +50,7 @@ const request = async (method, url: string, params?) => {
     },
   };
   const res = await Taro.request(option);
-  return res.data;
+  return res;
 };
 
 export default {

@@ -3,7 +3,7 @@ module.exports = {
     NODE_ENV: '"development"',
   },
   defineConstants: {
-    BASE_URL: '"http://192.168.104.212:88"',
+    BASE_URL: '"https://applechain.pcgi.com.cn:12020"',
   },
   mini: {},
   h5: {

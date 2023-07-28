@@ -18,7 +18,8 @@ const Login = () => {
   const [password, setPassWord] = useState<string>();
 
   const onSubmit = () => {
-    serivce.login({ username, password }).then((res) => {});
+    // serivce.login({ username, password }).then((res) => {});
+    serivce.login({ username, password });
   };
 
   return (
