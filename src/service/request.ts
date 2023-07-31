@@ -41,6 +41,18 @@ const request = async (method: RequestMethod, url: string, config?) => {
         case 200: {
           break;
         }
+        case 401:
+          {
+            Taro.showModal({
+              title: "登录提示",
+              content: "身份已过期，请重新登录后再来操作！",
+              success(res1) {
+                if (res.confirm) {
+                }
+              },
+            });
+          }
+          break;
         default:
           break;
       }

@@ -19,7 +19,7 @@ const Login = () => {
 
   const onSubmit = () => {
     // serivce.login({ username, password }).then((res) => {});
-    serivce.login({ username, password });
+    serivce.login({ username, password }).then((res) => {});
   };
 
   return (
