@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
 import { useState } from "react";
-import { View, Text } from "@tarojs/components";
-import { Input, Button } from "@nutui/nutui-react-taro";
+import { View, Text, Button } from "@tarojs/components";
+import { Input } from "@nutui/nutui-react-taro";
 import { Marshalling, Eye } from "@nutui/icons-react-taro";
 import * as serivce from "@/service/login";
 import { LoginResData, IForm } from "./interface";
