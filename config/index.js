@@ -14,19 +14,20 @@ const config = {
   outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: [],
   // 定义系统常量
-  defineConstants: {},
+  defineConstants: {
+    APP_NAME: '"小程序名称"',
+    COMPANY_NAME: '"陕西点云科技有限公司"',
+  },
   // 别名配置
   alias: {
-    "@": path.resolve(__dirname, "..", "src"),
-    "@pages": path.resolve(__dirname, "..", "src/pages"),
-    "@service": path.resolve(__dirname, "..", "src/service"),
+    "@/pages": path.resolve(__dirname, "..", "src/pages"),
+    "@/service": path.resolve(__dirname, "..", "src/service"),
   },
   copy: {
     patterns: [],
     options: {},
   },
   framework: "react",
-  // compiler: "webpack5",
   compiler: {
     type: "webpack5",
     prebundle: {

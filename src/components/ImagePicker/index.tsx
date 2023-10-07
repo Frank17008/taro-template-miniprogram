@@ -5,7 +5,7 @@ import {
   saveImg,
   deleteImg,
   UPLOAD_URL,
-} from "@service/common";
+} from "@/service/common";
 import { Uploader } from "@nutui/nutui-react-taro";
 import "./index.scss";
 

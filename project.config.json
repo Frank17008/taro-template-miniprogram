@@ -2,7 +2,7 @@
   "miniprogramRoot": "dist/",
   "projectname": "pcloud-template-miniprogram",
   "description": "点云科技小程序模板",
-  "appid": "",
+  "appid": "个人/企业账号的appid",
   "setting": {
     "urlCheck": true,
     "es6": false,

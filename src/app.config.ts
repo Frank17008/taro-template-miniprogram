@@ -10,8 +10,8 @@ export default defineAppConfig({
   // 分包
   subPackages: [
     {
-      root: "packageA",
-      pages: ["pages/login/index"],
+      root: "pages",
+      pages: ["home/index"],
     },
   ],
 });

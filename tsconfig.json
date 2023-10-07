@@ -22,8 +22,8 @@
       "node_modules/@types"
     ],
     "paths": {
-      "@pages/*": ["./src/pages/*"],
-      "@service/*": ["./src/service/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/service/*": ["./src/service/*"],
     }
   },
   "include": ["./src", "./types"],
