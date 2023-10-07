@@ -26,12 +26,14 @@ const Login = () => {
         setLoading(false);
         if (res?.statusCode === 200) {
           saveStorage(res);
+          Taro.switchTab({ url: "/pages/home/index" });
         } else {
           Taro.showToast({ title: res.error_description, icon: "none" });
         }
       })
       .catch(() => {
         setLoading(false);
+        Taro.switchTab({ url: "/pages/home/index" });
       });
   };
 
