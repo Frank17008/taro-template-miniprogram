@@ -15,7 +15,7 @@ const config = {
   plugins: [],
   // 定义系统常量
   defineConstants: {},
-  // 别名
+  // 别名配置
   alias: {
     "@": path.resolve(__dirname, "..", "src"),
     "@pages": path.resolve(__dirname, "..", "src/pages"),

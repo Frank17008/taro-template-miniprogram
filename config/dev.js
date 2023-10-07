@@ -4,10 +4,8 @@ module.exports = {
   },
   // 开发环境后端地址
   defineConstants: {
-    BASE_URL: '"https://applechain.pcgi.com.cn:12020"',
+    BASE_URL: '"http://192.168.104.212:88"',
   },
   mini: {},
-  h5: {
-    esnextModules: ["taro-ui"],
-  },
+  h5: {},
 };
