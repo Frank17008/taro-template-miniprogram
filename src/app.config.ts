@@ -9,9 +9,9 @@ export default defineAppConfig({
   },
   // 分包
   subPackages: [
-    {
-      root: "pages",
-      pages: ["home/index"],
-    },
+    // {
+    //   root: "pages",
+    //   pages: ["home/index"],
+    // }
   ],
 });
