@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  pages: ["pages/login/index"],
+  pages: ["pages/login/index", "pages/home/index", "pages/other/index"],
   window: {
     backgroundTextStyle: "dark",
     navigationBarBackgroundColor: "#fff",
@@ -24,6 +24,12 @@ export default defineAppConfig({
       {
         pagePath: "pages/home/index",
         text: "首页",
+        // iconPath: "./assets/images/home.png",
+        // selectedIconPath: "./assets/images/home-act.png",
+      },
+      {
+        pagePath: "pages/other/index",
+        text: "其他",
         // iconPath: "./assets/images/home.png",
         // selectedIconPath: "./assets/images/home-act.png",
       },
