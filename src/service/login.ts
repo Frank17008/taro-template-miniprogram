@@ -14,6 +14,7 @@ export const login = (params) => {
   const password = md5(params.password);
   const header = {
     "Content-Type": "application/x-www-form-urlencoded",
+    // 指定为app用户
     "User-Type": "app",
     Authorization,
   };

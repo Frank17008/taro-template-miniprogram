@@ -9,7 +9,7 @@ export default function Index() {
 
   return (
     <View className="index">
-      <Text>首asdf</Text>
+      <Text>首页</Text>
     </View>
   );
 }

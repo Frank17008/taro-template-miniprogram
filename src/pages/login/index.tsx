@@ -1,51 +1,119 @@
-import { useLoad } from "@tarojs/taro";
+import Taro from "@tarojs/taro";
 import { useState } from "react";
-import { View, Text, Form, Button } from "@tarojs/components";
-import { AtForm, AtInput, AtButton } from "taro-ui";
+import { View, Text } from "@tarojs/components";
+import { Input, Button } from "@nutui/nutui-react-taro";
+import { Marshalling, Eye } from "@nutui/icons-react-taro";
 import * as serivce from "@service/login";
-
-import "taro-ui/dist/style/components/article.scss"; // 按需引入样式
-import "taro-ui/dist/style/components/button.scss";
-import "taro-ui/dist/style/components/input.scss";
+import { LoginResData, IForm } from "./interface";
 import "./index.scss";
 
 const Login = () => {
-  useLoad(() => {
-    console.log("Page loaded.");
+  const [formValue, setFormValue] = useState<IForm>({
+    username: "",
+    password: "",
   });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [inputType, setInputType] = useState<string>("password");
+  const onSubmit = async () => {
+    if (!formValue.username || !formValue.password) {
+      Taro.showToast({ title: "账号或密码错误", icon: "error" });
+      return;
+    }
+    setLoading(true);
+    serivce
+      .login(formValue)
+      .then((res: LoginResData) => {
+        setLoading(false);
+        if (res?.statusCode === 200) {
+          saveStorage(res);
+        } else {
+          Taro.showToast({ title: res.error_description, icon: "none" });
+        }
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
 
-  const [username, setUserName] = useState<string>();
-  const [password, setPassWord] = useState<string>();
-
-  const onSubmit = () => {
-    // serivce.login({ username, password }).then((res) => {});
-    serivce.login({ username, password }).then((res) => {});
+  const saveStorage = (data) => {
+    const userInfo = {
+      account: data.account,
+      userName: data.user_name,
+      userId: data.user_id,
+      nickName: data.nick_name,
+      realName: data.real_name,
+      roleId: data.role_id,
+      roleName: data.role_name,
+      avatar: data.avatar,
+      scope: data.scope,
+    };
+    const accessInfo = {
+      accessToken: data.access_token,
+      refreshToken: data.refresh_token,
+      expires: data.expires_in,
+      deptId: data.dept_id,
+      detail: data.detail,
+      tokenType: data.token_type,
+      tenantId: data.tenant_id,
+      loginTime: Date.now(),
+      expiresTime: Date.now() + data.expires_in * 1000,
+    };
+    Taro.setStorageSync("userInfo", userInfo);
+    Taro.setStorageSync("accessInfo", accessInfo);
   };
 
   return (
     <View className="login-wrapper">
-      <Text className="at-article__h3">{APP_NAME}</Text>
-      <View>
-        <AtForm onSubmit={onSubmit}>
-          <AtInput
-            value={username}
-            name="username"
+      <View className="header">
+        <Text className="app_name">{APP_NAME}</Text>
+      </View>
+      <View className="form-content">
+        <View className="input-box">
+          <View className="label">账号</View>
+          <Input
+            className="form-input"
+            value={formValue.username}
             type="text"
             placeholder="请输入账号"
-            onChange={(v: string) => setUserName(v)}
+            onChange={(v: string) =>
+              setFormValue({ ...formValue, username: v })
+            }
           />
-          <AtInput
-            value={password}
-            name="password"
-            type="password"
+        </View>
+        <View className="input-box">
+          <View className="label">密码</View>
+          <Input
+            className="form-input"
+            type={inputType}
+            value={formValue.password}
             placeholder="请输入密码"
-            onChange={(v: string) => setPassWord(v)}
+            onChange={(v: string) =>
+              setFormValue({ ...formValue, password: v })
+            }
           />
-          <Button formType="submit" type="primary">
-            登录
-          </Button>
-        </AtForm>
+          {formValue.password && (
+            <View
+              className="psw-icon"
+              onClick={() =>
+                setInputType(inputType === "text" ? "password" : "text")
+              }
+            >
+              {inputType === "password" ? <Eye /> : <Marshalling />}
+            </View>
+          )}
+        </View>
+        <Button
+          className="form-btn"
+          block
+          shape="square"
+          type="primary"
+          loading={loading}
+          onClick={onSubmit}
+        >
+          登录
+        </Button>
       </View>
+      <View className="company-name">技术支持: {COMPANY_NAME}</View>
     </View>
   );
 };

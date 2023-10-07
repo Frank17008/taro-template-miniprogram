@@ -1,0 +1,82 @@
+.login-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  overflow: hidden;
+  .header {
+    margin-top: 70px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .logo {
+      width: 60px;
+      height: 60px;
+    }
+    .app_name {
+      display: block;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+  }
+
+  .form-content {
+    padding: 0 24px;
+    font-size: 20px;
+  }
+  .input-box {
+    position: relative;
+    border: 1px solid #e9e9e9;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    .label {
+      padding: 0 10px;
+      line-height: 30px;
+      font-size: 14px;
+      text-align: center;
+      background-color: #fff;
+      position: absolute;
+      top: -16px;
+      left: 10px;
+      z-index: 10;
+    }
+    .psw-icon {
+      position: absolute;
+      right: 10px;
+      top: 17px;
+      z-index: 10;
+      color: #bfbfbf;
+      .nut-icon {
+        font-size: 20px;
+      }
+    }
+  }
+  .form-input {
+    border: 0;
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  .form-btn {
+    margin-top: 36px;
+    height: 48px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  .company-name {
+    position: absolute;
+    font-size: 14px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    bottom: 30px;
+    color: #5a5a5a;
+  }
+  --nutui-input-font-size: 18px;
+}
