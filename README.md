@@ -51,8 +51,8 @@
 
 ## 注意事项
 
-- 若开发者未曾接触过多端开发，强烈建议仔细阅读相关文档;
 - Node.js 版本建议 `>=16.20.0`, 包管理器建议`pnpm`;
+- 项目配置文件 project.config.json 中的`projectname`、`description`, `appid`字段建议自行设置;
 - 采用微信小程序开发时,要特别注意各个页面的分包大小,components 目录虽然是通用组件目录，但基于小程序规则限制,所以非必要时不在此目录中存储过多文件;
   [小程序分包指南](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages.html)
   [代码包体积优化指南](https://developers.weixin.qq.com/miniprogram/dev/framework/performance/tips/start_optimizeA.html)
