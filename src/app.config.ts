@@ -8,10 +8,10 @@ export default defineAppConfig({
     enablePullDownRefresh: true,
   },
   // 分包
-  // subPackages: [
-  //   {
-  //     root: "packageA",
-  //     pages: ["pages/login/index"],
-  //   },
-  // ],
+  subPackages: [
+    {
+      root: "packageA",
+      pages: ["pages/login/index"],
+    },
+  ],
 });

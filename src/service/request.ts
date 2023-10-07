@@ -3,66 +3,73 @@ import Taro from "@tarojs/taro";
 const customInterceptor = (chain) => {
   const requestParams = chain.requestParams;
   if (requestParams) {
-    //   const { method, data, url } = requestParams;
-    // const token = Taro.getStorageSync("token");
-    // requestParams.headers = {
-    // ...(requestParams?.header || {}),
-    // "Blade-auth": token,
-    // Authorization: accessInfo.authorization,
-    // };
+    const accessInfo = Taro.getStorageSync("accessInfo");
+    requestParams.header = {
+      ...(requestParams?.header || {}),
+      ...(accessInfo?.accessToken && { "Blade-auth": accessInfo?.accessToken }),
+      "Tenant-Id": accessInfo?.tenantId || "000000",
+    };
   }
-  return chain.proceed(requestParams).then((res) => res);
+  return chain.proceed({ ...requestParams }).then((res: any) => {
+    // HTTP Status Code
+    switch (res.statusCode) {
+      case 200:
+        return res.data;
+      case 401:
+        const currentPages = Taro.getCurrentPages();
+        const { route } = currentPages[0];
+        if (route === "pages/login/index") {
+          Taro.showToast({ title: "鉴权失败", icon: "error" });
+        } else {
+          Taro.showToast({ title: "Token过期", icon: "error" });
+          Taro.reLaunch({ url: "/pages/login/index" });
+        }
+        return Promise.reject("Token失效");
+      case 404:
+      case 500:
+        Taro.showToast({ title: "请求异常", icon: "error" });
+        return Promise.reject("请求异常");
+      default:
+        break;
+    }
+  });
 };
 
 Taro.addInterceptor(customInterceptor);
-// 日志
-// Taro.addInterceptor(Taro.interceptors.logInterceptor);
-// 超时
-// Taro.addInterceptor(Taro.interceptors.timeoutInterceptor);
+Taro.addInterceptor(Taro.interceptors.timeoutInterceptor);
 
 type RequestMethod = "PUT" | "POST" | "GET" | "DELETE" | "PATCH";
+
 const request = async (method: RequestMethod, url: string, config?) => {
   const ContentType = config?.data
     ? "application/json"
     : "application/x-www-form-urlencoded";
   // get请求使用params, post使用data
   const data = config?.params || config?.data;
-  const option = {
-    method,
-    url,
-    data,
-    header: {
-      "Content-Type": ContentType,
-      "Tenant-Id": "000000",
-      ...config?.headers,
-    },
-    success(res) {
-      switch (res?.statusCode) {
-        case 200: {
-          break;
-        }
-        case 401:
-          {
-            Taro.showModal({
-              title: "登录提示",
-              content: "身份已过期，请重新登录后再来操作！",
-              success(res1) {
-                if (res.confirm) {
-                }
-              },
-            });
-          }
-          break;
-        default:
-          break;
-      }
-    },
-    error(e) {
-      console.error("请求接口出现问题", e);
-    },
-  };
-  const res = await Taro.request(option);
-  return res;
+  return new Promise((resolve, reject) => {
+    Taro.request({
+      method,
+      url,
+      data,
+      header: {
+        "Content-Type": ContentType,
+        ...config?.header,
+      },
+      success(res) {
+        // if (res?.data?.code === 200) {
+        return resolve({ ...(res.data || {}), statusCode: res.statusCode });
+        // }
+        // else {
+        //   Taro.showToast({ title: "请求异常", icon: "error" });
+        //   return reject(res?.data?.msg || "请求异常");
+        // }
+      },
+      fail(e) {
+        Taro.showToast({ title: "系统错误", icon: "error" });
+        return reject("系统错误");
+      },
+    });
+  });
 };
 
 export default {

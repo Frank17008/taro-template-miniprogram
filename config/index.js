@@ -13,10 +13,11 @@ const config = {
   sourceRoot: "src",
   outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: [],
-  defineConstants: {
-    APP_NAME: '"数字乡村数据采集系统"',
-  },
+  // 定义系统常量
+  defineConstants: {},
+  // 别名
   alias: {
+    "@": path.resolve(__dirname, "..", "src"),
     "@pages": path.resolve(__dirname, "..", "src/pages"),
     "@service": path.resolve(__dirname, "..", "src/service"),
   },
