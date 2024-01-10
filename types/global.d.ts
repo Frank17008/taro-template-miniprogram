@@ -27,5 +27,6 @@ declare namespace NodeJS {
 }
 
 declare const BASE_URL: string;
+declare const OSS_URL: string;
 declare const APP_NAME: string;
 declare const COMPANY_NAME: string;

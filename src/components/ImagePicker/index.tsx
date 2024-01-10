@@ -145,8 +145,8 @@ const ImagePicker = ({
       name: getCaption(_file?.originalName, "/"),
       // 文件扩展名
       extension: getCaption(_file?.originalName, "."),
-      // 接口返回的图片的网络url
-      url: _file?.link,
+      // 接口返回的图片的网络url, 如果有代理则优先使用代理地址进行转发
+      url: OSS_URL ? `${OSS_URL}${_file?.name}` : _file?.link,
     };
     // 编辑模式时 保存图片与minio的关联关系
     if (extra?.mode === "edit" && extra?.resourceId) {
