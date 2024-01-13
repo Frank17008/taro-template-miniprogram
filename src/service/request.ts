@@ -15,6 +15,12 @@ const customInterceptor = (chain) => {
     switch (res.statusCode) {
       case 200:
         return res.data;
+      case 400:
+        if (res.data?.error === "invalid_grant") {
+          Taro.showToast({ title: "用户名或密码错误", icon: "none" });
+          return Promise.reject("用户名或密码错误");
+        }
+        return res.data;
       case 401:
         const currentPages = Taro.getCurrentPages();
         const { route } = currentPages[0];
