@@ -41,7 +41,9 @@ const Login = () => {
     const userInfo = {
       account: data.account,
       userName: data.user_name,
+      tenantId: data.tenant_id,
       userId: data.user_id,
+      deptId: data.dept_id,
       nickName: data.nick_name,
       realName: data.real_name,
       roleId: data.role_id,
@@ -53,10 +55,8 @@ const Login = () => {
       accessToken: data.access_token,
       refreshToken: data.refresh_token,
       expires: data.expires_in,
-      deptId: data.dept_id,
       detail: data.detail,
       tokenType: data.token_type,
-      tenantId: data.tenant_id,
       loginTime: Date.now(),
       expiresTime: Date.now() + data.expires_in * 1000,
     };
