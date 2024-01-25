@@ -1,22 +1,40 @@
-import Taro from "@tarojs/taro";
-import { useState } from "react";
-import { View, Text, Button } from "@tarojs/components";
-import { Input } from "@nutui/nutui-react-taro";
-import { Marshalling, Eye } from "@nutui/icons-react-taro";
-import * as serivce from "@/service/login";
-import { LoginResData, IForm } from "./interface";
-import "./index.scss";
+import Taro, { useShareAppMessage, useShareTimeline } from '@tarojs/taro';
+import { useState } from 'react';
+import { View, Text, Button } from '@tarojs/components';
+import { Input } from '@nutui/nutui-react-taro';
+import { Marshalling, Eye } from '@nutui/icons-react-taro';
+import * as serivce from '@/service/login';
+import { LoginResData, IForm } from './interface';
+import './index.scss';
 
 const Login = () => {
   const [formValue, setFormValue] = useState<IForm>({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [inputType, setInputType] = useState<string>("password");
+  const [inputType, setInputType] = useState<string>('password');
+  useShareAppMessage((res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target);
+    }
+    return {
+      title: APP_NAME,
+      path: 'pages/login/index',
+      imageUrl: '',
+    };
+  });
+  useShareTimeline(() => {
+    return {
+      title: APP_NAME,
+      path: 'pages/login/index',
+      imageUrl: '',
+    };
+  });
   const onSubmit = async () => {
     if (!formValue.username || !formValue.password) {
-      Taro.showToast({ title: "账号或密码错误", icon: "error" });
+      Taro.showToast({ title: '账号或密码错误', icon: 'error' });
       return;
     }
     setLoading(true);
@@ -26,14 +44,14 @@ const Login = () => {
         setLoading(false);
         if (res?.statusCode === 200) {
           saveStorage(res);
-          Taro.switchTab({ url: "/pages/home/index" });
+          Taro.switchTab({ url: '/pages/home/index' });
         } else {
-          Taro.showToast({ title: res.error_description, icon: "none" });
+          Taro.showToast({ title: res.error_description, icon: 'none' });
         }
       })
       .catch(() => {
         setLoading(false);
-        Taro.switchTab({ url: "/pages/home/index" });
+        Taro.switchTab({ url: '/pages/home/index' });
       });
   };
 
@@ -60,62 +78,46 @@ const Login = () => {
       loginTime: Date.now(),
       expiresTime: Date.now() + data.expires_in * 1000,
     };
-    Taro.setStorageSync("userInfo", userInfo);
-    Taro.setStorageSync("accessInfo", accessInfo);
+    Taro.setStorageSync('userInfo', userInfo);
+    Taro.setStorageSync('accessInfo', accessInfo);
   };
 
   return (
-    <View className="login-wrapper">
-      <View className="header">
-        <Text className="app_name">{APP_NAME}</Text>
+    <View className='login-wrapper'>
+      <View className='header'>
+        <Text className='app_name'>{APP_NAME}</Text>
       </View>
-      <View className="form-content">
-        <View className="input-box">
-          <View className="label">账号</View>
+      <View className='form-content'>
+        <View className='input-box'>
+          <View className='label'>账号</View>
           <Input
-            className="form-input"
+            className='form-input'
             value={formValue.username}
-            type="text"
-            placeholder="请输入账号"
-            onChange={(v: string) =>
-              setFormValue({ ...formValue, username: v })
-            }
+            type='text'
+            placeholder='请输入账号'
+            onChange={(v: string) => setFormValue({ ...formValue, username: v })}
           />
         </View>
-        <View className="input-box">
-          <View className="label">密码</View>
+        <View className='input-box'>
+          <View className='label'>密码</View>
           <Input
-            className="form-input"
+            className='form-input'
             type={inputType}
             value={formValue.password}
-            placeholder="请输入密码"
-            onChange={(v: string) =>
-              setFormValue({ ...formValue, password: v })
-            }
+            placeholder='请输入密码'
+            onChange={(v: string) => setFormValue({ ...formValue, password: v })}
           />
           {formValue.password && (
-            <View
-              className="psw-icon"
-              onClick={() =>
-                setInputType(inputType === "text" ? "password" : "text")
-              }
-            >
-              {inputType === "password" ? <Eye /> : <Marshalling />}
+            <View className='psw-icon' onClick={() => setInputType(inputType === 'text' ? 'password' : 'text')}>
+              {inputType === 'password' ? <Eye /> : <Marshalling />}
             </View>
           )}
         </View>
-        <Button
-          className="form-btn"
-          block
-          shape="square"
-          type="primary"
-          loading={loading}
-          onClick={onSubmit}
-        >
+        <Button className='form-btn' block shape='square' type='primary' loading={loading} onClick={onSubmit}>
           登录
         </Button>
       </View>
-      <View className="company-name">技术支持: {COMPANY_NAME}</View>
+      <View className='company-name'>技术支持: {COMPANY_NAME}</View>
     </View>
   );
 };
