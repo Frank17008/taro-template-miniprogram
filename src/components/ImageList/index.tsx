@@ -1,15 +1,10 @@
 /**
  * 图片列表展示组件,支持多张图片预览切换
  */
-import { View } from "@tarojs/components";
-import {
-  Image,
-  ImagePreview,
-  ImagePreviewProps,
-  ImageProps,
-} from "@nutui/nutui-react-taro";
-import { useState } from "react";
-import "./index.scss";
+import { View } from '@tarojs/components';
+import { Image, ImagePreview, ImagePreviewProps, ImageProps } from '@nutui/nutui-react-taro';
+import { useState } from 'react';
+import './index.scss';
 
 type ImageMergeProps = ImageProps & ImagePreviewProps;
 interface ImageListProps extends ImageMergeProps {
@@ -22,17 +17,17 @@ export default function ImageList(props: ImageListProps) {
   const [activeIndex, setActiveIndex] = useState<number>(1);
   const images = imageList?.map((e) => ({ src: OSS_URL + e.minioPath })) || [];
   return (
-    <View className="images">
+    <View className='images'>
       {images.map((e, i: number) => {
         return (
           <Image
             {...rest}
-            className="image-item"
+            className='image-item'
             key={i}
             src={e.src}
-            mode="scaleToFill"
-            width="40"
-            height="40"
+            mode='scaleToFill'
+            width='40'
+            height='40'
             onClick={() => {
               setActiveIndex(i + 1);
               setShowPreview(true);
