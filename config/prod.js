@@ -4,9 +4,9 @@ module.exports = {
   },
   // 生产环境后端地址
   defineConstants: {
-    BASE_URL: '"https://applechain.pcgi.com.cn:12020"',
+    BASE_URL: '"https://xxx.xx.xx:12020"',
     // 对象存储地址
-    OSS_URL: '"https://applechain.pcgi.com.cn:9000"',
+    OSS_URL: '"https://xxx.xx.xx:9000"',
   },
   mini: {},
   h5: {
@@ -38,3 +38,4 @@ module.exports = {
     // }
   },
 };
+

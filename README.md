@@ -1,16 +1,10 @@
-# 点云前端项目——小程序模板说明
+# 前端项目——小程序模板说明
 
 [TOC]
 
 ## 概述
 
 此模板是基于京东[Taro.js](https://taro-docs.jd.com/docs) v3.6.20 多端框架 + [NutUI-React](https://nutui.jd.com/taro/react/2x/#/zh-CN/guide/intro-react) 小程序 UI 组件库，并结合了目前部分业务特殊性所封装的一套小程序开发模板，开发人员可基于此模板快速进行开发业务功能;
-
-## 下载方式
-
-- 使用内网环境 Gitlab 地址下载 ([模板地址](http://192.168.101.96:8090/pointcloud_frontend/basiclibrary/pcloud-template-miniprogram.git));
-
-- 使用点云前端脚手架`pcloud-cli`, npm 全局安装后, 执行命令 `pcloud create [文件夹名称]`,依照提示选择模板下载即可;
 
 ## 目录结构
 

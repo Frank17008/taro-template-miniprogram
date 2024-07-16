@@ -1,8 +1,8 @@
-const path = require("path");
+const path = require('path');
 
 const config = {
-  projectName: "pcloud-template-miniprogram",
-  date: "2023-7-24",
+  projectName: 'pcloud-template-miniprogram',
+  date: '2023-7-24',
   designWidth: 375,
   deviceRatio: {
     640: 2.34 / 2,
@@ -10,26 +10,26 @@ const config = {
     828: 1.81 / 2,
     375: 2 / 1,
   },
-  sourceRoot: "src",
+  sourceRoot: 'src',
   outputRoot: `dist/${process.env.TARO_ENV}`,
   plugins: [],
   // 定义系统常量
   defineConstants: {
-    APP_NAME: '"小程序名称"',
-    COMPANY_NAME: '"陕西点云科技有限公司"',
+    APP_NAME: '"App Name"',
+    COMPANY_NAME: '"Your Company Name"',
   },
   // 别名配置
   alias: {
-    "@/pages": path.resolve(__dirname, "..", "src/pages"),
-    "@/service": path.resolve(__dirname, "..", "src/service"),
+    '@/pages': path.resolve(__dirname, '..', 'src/pages'),
+    '@/service': path.resolve(__dirname, '..', 'src/service'),
   },
   copy: {
     patterns: [],
     options: {},
   },
-  framework: "react",
+  framework: 'react',
   compiler: {
-    type: "webpack5",
+    type: 'webpack5',
     prebundle: {
       enable: false,
       force: true,
@@ -53,15 +53,15 @@ const config = {
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
         config: {
-          namingPattern: "module", // 转换模式，取值为 global/module
-          generateScopedName: "[name]__[local]___[hash:base64:5]",
+          namingPattern: 'module', // 转换模式，取值为 global/module
+          generateScopedName: '[name]__[local]___[hash:base64:5]',
         },
       },
     },
   },
   h5: {
-    publicPath: "/",
-    staticDirectory: "static",
+    publicPath: '/',
+    staticDirectory: 'static',
     postcss: {
       autoprefixer: {
         enable: true,
@@ -70,14 +70,14 @@ const config = {
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
         config: {
-          namingPattern: "module", // 转换模式，取值为 global/module
-          generateScopedName: "[name]__[local]___[hash:base64:5]",
+          namingPattern: 'module', // 转换模式，取值为 global/module
+          generateScopedName: '[name]__[local]___[hash:base64:5]',
         },
       },
     },
   },
   rn: {
-    appName: "taroDemo",
+    appName: 'taroDemo',
     postcss: {
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
@@ -87,8 +87,9 @@ const config = {
 };
 
 module.exports = function (merge) {
-  if (process.env.NODE_ENV === "development") {
-    return merge({}, config, require("./dev"));
+  if (process.env.NODE_ENV === 'development') {
+    return merge({}, config, require('./dev'));
   }
-  return merge({}, config, require("./prod"));
+  return merge({}, config, require('./prod'));
 };
+
